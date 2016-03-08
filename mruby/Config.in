@@ -11,7 +11,7 @@ config MRUBY_MRBC
 
 config MRUBY_MIRB
 	bool "mruby interactive shell"
-	default n
+	default y
 
 config MRUBY_STRIP
 	bool "mruby strip"
@@ -24,99 +24,99 @@ menu "GEMs (Core)"
 
 config MRUBY_ARRAY_EXT
 	bool "mruby-array-ext"
-	default n
+	default y
 
 config MRUBY_ENUM_EXT
 	bool "mruby-enum-ext"
-	default n
+	default y
 
 config MRUBY_ENUM_LAZY
 	bool "mruby-enum-lazy"
-	default n
+	default y
 
 config MRUBY_ENUMERATOR
 	bool "mruby-enumerator"
-	default n
+	default y
 
 config MRUBY_ERROR
 	bool "mruby-error"
-	default n
+	default y
 
 config MRUBY_EVAL
 	bool "mruby-eval"
-	default n
+	default y
 
 config MRUBY_EXIT
 	bool "mruby-exit"
-	default n
+	default y
 
 config MRUBY_FIBER
 	bool "mruby-fiber"
-	default n
+	default y
 
 config MRUBY_HASH_EXT
 	bool "mruby-hash-ext"
-	default n
+	default y
 
 config CONFIG_MRUBY_KERNEL_EXT
 	bool "mruby-kernel-ext"
-	default n
+	default y
 
 config MRUBY_MATH
 	bool "mruby-math"
-	default n
+	default y
 
 config MRUBY_NUMERIC_EXT
 	bool "mruby-numeric-ext"
-	default n
+	default y
 
 config MRUBY_OBJECT_EXT
 	bool "mruby-object-ext"
-	default n
+	default y
 
 config MRUBY_OBJECTSPACE
 	bool "mruby-objectspace"
-	default n
+	default y
 
 config MRUBY_PRINT
 	bool "mruby-print"
-	default n
+	default y
 
 config MRUBY_PROC_EXT
 	bool "mruby-proc-ext"
-	default n
+	default y
 
 config MRUBY_RANDOM
 	bool "mruby-random"
-	default n
+	default y
 
 config MRUBY_RANGE_EXT
 	bool "mruby-range-ext"
-	default n
+	default y
 
 config MRUBY_SPRINTF
 	bool "mruby-sprintf"
-	default n
+	default y
 
 config MRUBY_STRING_EXT
 	bool "mruby-string-ext"
-	default n
+	default y
 
 config MRUBY_STRUCT
 	bool "mruby-struct"
-	default n
+	default y
 
 config MRUBY_SYMBOL_EXT
 	bool "mruby-symbol-ext"
-	default n
+	default y
 
 config MRUBY_TIME
 	bool "mruby-time"
-	default n
+	default y
 
 config MRUBY_TOPLEVEL_EXT
 	bool "mruby-toplevel-ext"
-	default n
+	default y
 
 endmenu
 
@@ -125,35 +125,43 @@ menu "GEMs (External)"
 
 config MRUBY_IO
 	bool "mruby-io"
-	default n
+	default y
 
 config MRUBY_SLEEP
 	bool "mruby-sleep"
-	default n
+	default y
 
 config MRUBY_SOCKET
 	bool "mruby-socket"
-	default n
+	default y
 
 config MRUBY_PROCESS
 	bool "mruby-process"
-	default n
+	default y
 
 config MRUBY_PACK
 	bool "mruby-pack"
-	default n
+	default y
 
 config MRUBY_ENV
 	bool "mruby-env"
-	default n
+	default y
 
 config MRUBY_DIR
 	bool "mruby-dir"
-	default n
+	default y
 
 config MRUBY_MRICK
 	bool "mruby-mrick"
-	default n
+	default y
+
+config MRUBY_BIGNUM
+	bool "mruby-bignum"
+	default y
+
+config MRUBY_THREAD
+	bool "mruby-thread"
+	default y
 
 endmenu
 

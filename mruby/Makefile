@@ -277,6 +277,18 @@ define Build/Configure
 	)
   endif
 
+  ifeq ($(CONFIG_MRUBY_BIGNUM),y)
+	(cd $(PKG_BUILD_DIR);\
+	echo "conf.gem :github => \"chasonr/mruby-bignum\"" >> $(PKG_GEMBOX)\
+	)
+  endif
+
+  ifeq ($(CONFIG_MRUBY_THREAD),y)
+	(cd $(PKG_BUILD_DIR);\
+	echo "conf.gem :github => \"mattn/mruby-thread\"" >> $(PKG_GEMBOX)\
+	)
+  endif
+
 
   # Finalize Gembox
 
