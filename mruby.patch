@@ -1,0 +1,88 @@
+diff -ru mruby-head.org/build/mrbgems/mruby-bignum/src/bignum-gem.c mruby-head/build/mrbgems/mruby-bignum/src/bignum-gem.c
+--- mruby-head.org/build/mrbgems/mruby-bignum/src/bignum-gem.c	2016-03-08 15:31:07.269071270 +0900
++++ mruby-head/build/mrbgems/mruby-bignum/src/bignum-gem.c	2016-03-08 15:35:17.645502120 +0900
+@@ -586,16 +586,19 @@
+   }
+
+   /* Set up the product for the main loop */
+-  for (size_t j = 0U; j < in2_size; ++j) {
++  size_t j;
++  for (j = 0U; j < in2_size; ++j) {
+     out[j] = 0U;
+   }
+
+   /* Invariant for the outer loop:  out has i+in2_size digits and contains the
+      product of the first i digits of in1 with all of in2 */
+-  for (size_t i = 0U; i < in1_size; ++i) {
++  size_t i;
++  for (i = 0U; i < in1_size; ++i) {
+     /* Inner loop:  multiply one digit of in1 by in2 and add to prod */
+     bn_digit carry = 0U;
+-    for (size_t j = 0U; j < in2_size; ++j) {
++    size_t j;
++    for (j = 0U; j < in2_size; ++j) {
+       /* Never overflows, because */
+       /* (2^N-1)*(2^N-1) + (2^N-1) + (2^N-1) = 2^(2*N)-1 */
+       bn_dbl_digit prod = (bn_dbl_digit)in1[i] * in2[j] + carry + out[i+j];
+@@ -769,9 +772,11 @@
+   memset(out, 0, in1_size * sizeof(out[0]));
+
+   /* Elements in1[i] and in1[j] where i != j */
+-  for (size_t i = 0U; i+1U < in1_size; ++i) {
++  size_t i;
++  for (i = 0U; i+1U < in1_size; ++i) {
+     bn_digit carry = 0U;
+-    for (size_t j = i+1U; j < in1_size; ++j) {
++    size_t j;
++    for (j = i+1U; j < in1_size; ++j) {
+       bn_dbl_digit prod = (bn_dbl_digit)in1[i] * in1[j] + out[i+j] + carry;
+       out[i+j] = (bn_digit)prod;
+       carry = (bn_digit)(prod >> MRB_BIGNUM_BIT);
+@@ -785,7 +790,8 @@
+   {
+     unsigned carry = 0U;
+     size_t j = 0U;
+-    for (size_t i = 0U; i < in1_size; ++i) {
++    size_t i;
++    for (i = 0U; i < in1_size; ++i) {
+       bn_dbl_digit prod = (bn_dbl_digit)in1[i] * in1[i];
+       bn_digit sum;
+       sum = out[j] + (bn_digit)prod + carry;
+diff -ru mruby-head.org/build/mrbgems/mruby-io/mrbgem.rake mruby-head/build/mrbgems/mruby-io/mrbgem.rake
+--- mruby-head.org/build/mrbgems/mruby-io/mrbgem.rake	2016-03-08 15:30:53.681047906 +0900
++++ mruby-head/build/mrbgems/mruby-io/mrbgem.rake	2016-03-08 15:33:14.625290330 +0900
+@@ -10,7 +10,4 @@
+     #spec.cc.include_paths += ["C:/Windows/system/include"]
+     spec.linker.library_paths += ["C:/Windows/system"]
+   end
+-  if build.kind_of?(MRuby::CrossBuild) && %w(x86_64-w64-mingw32 i686-w64-mingw32).include?(build.host_target)
+-    spec.linker.libraries += ['ws2_32']
+-  end
+ end
+diff -ru mruby-head.org/src/fmt_fp.c mruby-head/src/fmt_fp.c
+--- mruby-head.org/src/fmt_fp.c	2016-01-07 15:30:19.000000000 +0900
++++ mruby-head/src/fmt_fp.c	2016-03-08 15:37:56.461774792 +0900
+@@ -90,14 +90,6 @@
+ typedef char compiler_defines_long_double_incorrectly[9-(int)sizeof(long double)];
+ #endif
+
+-#if (defined(__CYGWIN32__) || defined(__NetBSD__) || defined(mips)) && !defined(__linux__)
+-static long double
+-frexpl (long double x, int *eptr)
+-{
+-	return frexp(x, eptr);
+-}
+-#endif
+-
+ static int
+ fmt_fp(struct fmt_args *f, long double y, int w, int p, int fl, int t)
+ {
+@@ -130,7 +122,7 @@
+     return MAX(w, 3+pl);
+   }
+
+-  y = frexpl(y, &e2) * 2;
++  y = frexp(y, &e2) * 2;
+   if (y) e2--;
+
+   if ((t|32)=='a') {
